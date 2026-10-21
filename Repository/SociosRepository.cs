@@ -126,21 +126,6 @@ namespace Repository
             {
                 sqlConn.Open();
 
-
-                //@"SELECT 
-                //         id_socio,
-                //         dni,
-                //         nombre,
-                //         apellido,
-                //         email,
-                //         direccion,
-                //         nombre_localidad,
-                //         localidad.id_localidad
-                //         FROM socios
-                //         INNER JOIN localidad
-                //         ON socios.id_localidad=localidad.id_localidad
-                //         ORDER BY id_socio";
-
                 string sql = @"
             SELECT
                 s.id_socio,
