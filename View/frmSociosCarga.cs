@@ -65,8 +65,10 @@ namespace View
         {
             try
             {
-                GuardarSocio();
-                this.Close();
+                if (GuardarSocio()){
+                    this.Close();
+                }
+               
             }
             catch (Exception ex)
             {
@@ -78,7 +80,7 @@ namespace View
 
         }
 
-        private void GuardarSocio()
+        private bool GuardarSocio()
         {
             Socios socio = new Socios();
             socio.Dni = Convert.ToInt32(this.txtDNI.Text);
@@ -87,8 +89,21 @@ namespace View
             socio.Email = this.txtEmail.Text;
             socio.Direccion = this.txtDireccion.Text;
 
+            if (!_socioController.ValidarEmail(socio.Email))
+            {
+                MessageBox.Show(
+                    "Ingrese una dirección de correo electrónico válida.",
+                    "Validación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                txtEmail.Focus();
+                return false;
+            }
+
             socio.IdLocalidad = Convert.ToInt32(cboLocalidad.SelectedValue);
-            _socioController.guardarSocio(socio, _accion, _id_socio);
+            return _socioController.guardarSocio(socio, _accion, _id_socio);
 
         }
 

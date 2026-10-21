@@ -1,5 +1,7 @@
 ﻿using Model;
 using Service;
+using System.Net.Mail;
+
 
 namespace Controller
 {
@@ -17,9 +19,31 @@ namespace Controller
             return _sociosService.filtrarSocios(filtro);
         }
 
-        public bool guardarSocio(Socios socio, int _accion, int _id_socio)
+        
+
+
+public bool ValidarEmail(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email))
+            return false;
+
+        try
         {
-            return _sociosService.guardarSocio(socio, _accion, _id_socio);
+            var direccion = new MailAddress(email.Trim());
+
+            return direccion.Address == email.Trim();
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
+    }
+
+
+    public bool guardarSocio(Socios socio, int _accion, int _id_socio)
+        {
+            
+        return _sociosService.guardarSocio(socio, _accion, _id_socio);
         }
 
         public List<Localidad> CargarComboLocalidades()
