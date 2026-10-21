@@ -112,32 +112,64 @@ namespace Repository
             return false;
         }
 
+
+
+
+
         public List<Socios> Buscar(string filtro)
         {
             var socios = new List<Socios>();
 
+            filtro = filtro?.Trim() ?? "";
 
             using (var sqlConn = Conexion.getInstancia("root", "root").CrearConexion())
             {
                 sqlConn.Open();
 
-                string sql = @"SELECT socios.id_socio, socios.dni,  socios.nombre,
-        socios.apellido, socios.email, socios.direccion,
-        localidad.nombre_localidad,  localidad.id_localidad FROM socios INNER JOIN localidad 
-        ON socios.id_localidad = localidad.id_localidad
-        WHERE  (@filtro = '' OR socios.nombre LIKE @filtro
-        OR socios.apellido LIKE @filtro) ORDER BY socios.id_socio;";
 
-              
+                //@"SELECT 
+                //         id_socio,
+                //         dni,
+                //         nombre,
+                //         apellido,
+                //         email,
+                //         direccion,
+                //         nombre_localidad,
+                //         localidad.id_localidad
+                //         FROM socios
+                //         INNER JOIN localidad
+                //         ON socios.id_localidad=localidad.id_localidad
+                //         ORDER BY id_socio";
+
+                string sql = @"
+            SELECT
+                s.id_socio,
+                s.dni,
+                s.nombre,
+                s.apellido,
+                s.email,
+                s.direccion,
+                l.nombre_localidad,
+                l.id_localidad
+            FROM socios s
+            LEFT JOIN localidad l
+                ON s.id_localidad = l.id_localidad";
+
+                if (!string.IsNullOrWhiteSpace(filtro))
+                {
+                    sql += @"
+                WHERE s.nombre LIKE @filtro
+                   OR s.apellido LIKE @filtro";
+                }
+
+                sql += " ORDER BY s.id_socio;";
 
                 using MySqlCommand comando = new MySqlCommand(sql, sqlConn);
 
-                comando.Parameters.AddWithValue(
-                    "@filtro", $"%{filtro}%");
-               // Cmd.Parameters.AddWithValue("@busqueda", "%" & busqueda.Trim() & "%")
-
-
-
+                if (!string.IsNullOrWhiteSpace(filtro))
+                {
+                    comando.Parameters.AddWithValue("@filtro", $"%{filtro}%");
+                }
 
                 using var reader = comando.ExecuteReader();
 
@@ -151,12 +183,20 @@ namespace Repository
                         Apellido = reader["apellido"].ToString(),
                         Email = reader["email"].ToString(),
                         Direccion = reader["direccion"].ToString(),
-                        NombreLocalidad = reader["nombre_localidad"].ToString(),
+                        NombreLocalidad = reader["nombre_localidad"] == DBNull.Value
+                            ? ""
+                            : reader["nombre_localidad"].ToString(),
+                        IdLocalidad = Convert.ToInt32(reader["id_localidad"])
                     });
                 }
             }
+
             return socios;
         }
+
+
+
+
 
         public bool insertSocio(Socios socio, int _accion)
         {

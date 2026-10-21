@@ -225,29 +225,14 @@ namespace View
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            string filtro = this.txtBusqueda.Text;
+            string filtro = txtBusqueda.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(filtro))
-                return;
+            List<Socios> lista = _sociosController.filtrarSocios(filtro);
 
-            List<Socios> socios =
-                _sociosController.filtrarSocios(filtro);
+            MessageBox.Show($"Socios encontrados: {lista.Count}");
 
-            if (socios != null && socios.Count > 0)
-            {
-                dataGridSocios.DataSource = null;
-                dataGridSocios.DataSource = socios;
-
-                //FormatoGrillaProductos();
-            }
-            else
-            {
-                MessageBox.Show(
-                    "No se encontraron productos.",
-                    "Búsqueda",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-            }
+            dataGridSocios.DataSource = null;
+            dataGridSocios.DataSource = lista;
 
 
         }
