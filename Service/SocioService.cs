@@ -18,6 +18,12 @@ namespace Service
             return this._sociosRepository.CargarComboLocalidades();
         }
 
+        public List<Socios> filtrarSocios(string filtro)
+        {
+
+            return this._sociosRepository.Buscar(filtro);
+        }
+
         public bool guardarSocio(Socios socio, int _accion, int _id_socio)
         {
             // Regla de negocio: edad mínima

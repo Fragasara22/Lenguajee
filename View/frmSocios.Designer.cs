@@ -35,9 +35,12 @@
             button3 = new Button();
             button4 = new Button();
             panelSuperior = new Panel();
+            btnBuscar = new Button();
+            txtBusqueda = new TextBox();
             panelDatos = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridSocios).BeginInit();
             flowLayoutPanelInferior.SuspendLayout();
+            panelSuperior.SuspendLayout();
             panelDatos.SuspendLayout();
             SuspendLayout();
             // 
@@ -49,7 +52,7 @@
             dataGridSocios.Name = "dataGridSocios";
             dataGridSocios.RowHeadersWidth = 51;
             dataGridSocios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridSocios.Size = new Size(939, 336);
+            dataGridSocios.Size = new Size(939, 372);
             dataGridSocios.TabIndex = 3;
             // 
             // flowLayoutPanelInferior
@@ -60,7 +63,7 @@
             flowLayoutPanelInferior.Controls.Add(button4);
             flowLayoutPanelInferior.Dock = DockStyle.Bottom;
             flowLayoutPanelInferior.FlowDirection = FlowDirection.RightToLeft;
-            flowLayoutPanelInferior.Location = new Point(0, 426);
+            flowLayoutPanelInferior.Location = new Point(0, 489);
             flowLayoutPanelInferior.Name = "flowLayoutPanelInferior";
             flowLayoutPanelInferior.Size = new Size(969, 73);
             flowLayoutPanelInferior.TabIndex = 4;
@@ -107,27 +110,46 @@
             // 
             // panelSuperior
             // 
+            panelSuperior.Controls.Add(btnBuscar);
+            panelSuperior.Controls.Add(txtBusqueda);
             panelSuperior.Dock = DockStyle.Top;
             panelSuperior.Location = new Point(0, 0);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(969, 60);
+            panelSuperior.Size = new Size(969, 87);
             panelSuperior.TabIndex = 5;
+            // 
+            // btnBuscar
+            // 
+            btnBuscar.Location = new Point(231, 24);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(75, 42);
+            btnBuscar.TabIndex = 1;
+            btnBuscar.Text = "button5";
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
+            // 
+            // txtBusqueda
+            // 
+            txtBusqueda.Location = new Point(32, 32);
+            txtBusqueda.Name = "txtBusqueda";
+            txtBusqueda.Size = new Size(193, 27);
+            txtBusqueda.TabIndex = 0;
             // 
             // panelDatos
             // 
             panelDatos.Controls.Add(dataGridSocios);
             panelDatos.Dock = DockStyle.Fill;
-            panelDatos.Location = new Point(0, 60);
+            panelDatos.Location = new Point(0, 87);
             panelDatos.Name = "panelDatos";
-            panelDatos.Padding = new Padding(15, 15, 15, 15);
-            panelDatos.Size = new Size(969, 366);
+            panelDatos.Padding = new Padding(15);
+            panelDatos.Size = new Size(969, 402);
             panelDatos.TabIndex = 6;
             // 
             // frmSocios
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(969, 499);
+            ClientSize = new Size(969, 562);
             Controls.Add(panelDatos);
             Controls.Add(panelSuperior);
             Controls.Add(flowLayoutPanelInferior);
@@ -136,6 +158,8 @@
             Load += frmSocios_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridSocios).EndInit();
             flowLayoutPanelInferior.ResumeLayout(false);
+            panelSuperior.ResumeLayout(false);
+            panelSuperior.PerformLayout();
             panelDatos.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -149,5 +173,7 @@
         private Button button2;
         private Button button3;
         private Button button4;
+        private Button btnBuscar;
+        private TextBox txtBusqueda;
     }
 }

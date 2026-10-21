@@ -12,6 +12,11 @@ namespace Controller
             return _sociosService.listarSocios();
         }
 
+        public List<Socios> filtrarSocios(string filtro)
+        {
+            return _sociosService.filtrarSocios(filtro);
+        }
+
         public bool guardarSocio(Socios socio, int _accion, int _id_socio)
         {
             return _sociosService.guardarSocio(socio, _accion, _id_socio);
